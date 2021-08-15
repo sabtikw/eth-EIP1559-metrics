@@ -15,7 +15,7 @@ def main():
     start_block = get_latest_block_db()
 
     if not start_block:
-        start_block = 13029759 # specify your start block here start of EIP-1559 is at block # 12965000  
+        start_block = 12965000 # specify your start block here start of EIP-1559 is at block # 12965000  
     else:
         start_block +=1
 
