@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Title</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="static/css/uikit.min.css" />
+        <script src="static/js/uikit.min.js"></script>
+        <script src="static/js/uikit-icons.min.js"></script>
+   
+    
+
+</head>
+    
+
+<body>
+
+    <p>EIP-1559 Blocks</p>
+<div id=main>
+
+</div>
+    <script>
+        fetch("blockchain")
+        .then(response => response.json())
+        .then(data =>{
+            console.log(data)
+            table = '<table class=\"uk-table uk-table-striped\"><thead><tr><th>Block Number</th><th>Miner Address</th><th>Base Fee (Gwei)</th><th>Gas Limit</th><th>Gas Used</th><th>Number of Trans.</th></tr></thead><tbody>'
+            
+            data.forEach(element => {
+                row = '<tr>'
+                    block_number = '<td>' + element[0] + '</td>'
+                    miner = '<td>' + element[1] + '</td>'
+                    basefee = '<td>' + element[2]/10**9 + '</td>'
+                    gaslimit = '<td>' + element[3] + '</td>'
+                    gasused =  '<td>' + element[4] + '</td>'
+                    trans = '<td>' + element[5] + '</td>'
+                    
+               
+                    row = block_number + miner + basefee + gaslimit + gasused + trans + '</tr>'
+                table = table + row
+            });
+            
+            document.querySelector("#main").innerHTML = table + "</tbody></table>"
+        })
+    </script>
+
+ 
+
+</body>
+
+</html>

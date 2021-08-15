@@ -4,10 +4,15 @@ import sqlite3
 app = Flask(__name__)
 
 
+
 @app.route("/")
+def chart():
+    return render_template("chart.html")
+
+
+@app.route("/blockchain")
 def blockchain():
     return jsonify(get_data_db())
-
 
 
 

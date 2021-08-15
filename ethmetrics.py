@@ -15,7 +15,7 @@ def main():
     start_block = get_latest_block_db()
 
     if not start_block:
-        start_block = 12965000 # specify your start block here start of EIP-1559 is at block # 12965000  
+        start_block = 13029759 # specify your start block here start of EIP-1559 is at block # 12965000  
     else:
         start_block +=1
 
@@ -33,13 +33,13 @@ def main():
         # if latest block > end_block , loop as above
         
         latest_block = w3.eth.block_number
-        print("before IF %s" % (latest_block))
+        
         if latest_block > end_block:
             start_block = end_block + 1
             end_block = latest_block
             print("start_block %s - end block %d" % (start_block,end_block))
             update_blocks(start_block,end_block,w3)
-
+        print("Waiting for new blocks...")
         # wait 30 seconds for new blocks
         time.sleep(30)
 
@@ -52,7 +52,6 @@ def get_latest_block_db():
     cursor = conection.cursor()
     cursor.execute("CREATE TABLE IF NOT EXISTS Blockchain (block_num INTEGER PRIMARY KEY, coinbase VARCHAR,basefeepergas INTEGER,gaslimit INTEGER,gasused INTEGER,numOfTrans Integer)")
 
-    # if exists read latest block number and set it (read from 12 965 000)
 
     start_block = cursor.execute("SELECT MAX(block_num) from Blockchain").fetchone()[0]
     conection.close()
